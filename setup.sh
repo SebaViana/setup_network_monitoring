@@ -1,7 +1,5 @@
 #!/bin/bash
 
-PROJECT_NAME= "monitoring"
-
 # Get script absolute path
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 DATA_DIR="$SCRIPT_DIR/data"
@@ -46,4 +44,4 @@ else
 fi
 
 # Run Docker Compose
-docker-compose -p $PROJECT_NAME up -d
+docker-compose up -d
