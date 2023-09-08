@@ -1,0 +1,31 @@
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./data/volumes/prometheus.yml:/etc/prometheus/prometheus.yml 
+    ports:
+      - "9090:9090"
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    networks:
+      - network_monitoring
+
+  icmp_ping_exporter:
+    image: icmp_ping_exporter
+    volumes:
+      - ./data/volumes/custom.yml:/app/custom.yml
+    ports: 
+      - "8085:8085"
+    networks:
+      - network_monitoring
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - network_monitoring
+
+networks:
+  network_monitoring:
