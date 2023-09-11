@@ -43,5 +43,6 @@ else
     exit 1
 fi
 
-# Run Docker Compose
-docker-compose up -d
+# Run Ansible playbook, it runs also Docker Compose
+cd $SCRIPT_DIR
+ansible-playbook main.yml

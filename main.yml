@@ -1,0 +1,32 @@
+---
+- name: Deploy Containers
+  hosts: localhost
+  tasks:
+
+    - name: Get Parent Folder Directory
+      command: basename "{{ playbook_dir }}"
+      register: parent_folder_name
+
+    - set_fact:
+        docker_network_name: "bridge_{{ parent_folder_name.stdout }}"
+
+    - name: Create Docker Network
+      docker_network:
+        name: "{{ docker_network_name }}" 
+        driver: bridge
+        state: present
+
+    - name: Get Docker Bridge Network IP
+      shell: "docker network inspect {{ docker_network_name }}" 
+      register: network_info
+
+    - set_fact:
+        docker_network_monitoring_ip: "{{ network_info.stdout | from_json | json_query('[] | [0].IPAM.Config[0].Gateway') }}"
+
+    - name: Copy Prometheus template file
+      template:
+        src: data/templates/prometheus.j2
+        dest: data/volumes/prometheus.yml
+
+    - name: Run Docker Compose Up
+      command: docker-compose up -d

@@ -9,7 +9,7 @@ services:
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     networks:
-      - network_monitoring
+      - bridge_
 
   icmp_ping_exporter:
     image: icmp_ping_exporter
@@ -18,14 +18,14 @@ services:
     ports: 
       - "8085:8085"
     networks:
-      - network_monitoring
+      - bridge_
 
   grafana:
     image: grafana/grafana
     ports:
       - "3000:3000"
     networks:
-      - network_monitoring
+      - bridge_ 
 
 networks:
-  network_monitoring:
+  bridge_:
