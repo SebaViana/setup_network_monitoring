@@ -1,1 +1,8 @@
+hosts:
+  - ip: 8.8.8.8
+    label: external
+    name: Google DNS 1
+  - ip: 8.8.4.4
+    label: external
+    name: Google DNS 2
 ping_interval: 1
