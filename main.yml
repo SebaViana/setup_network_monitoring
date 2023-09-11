@@ -22,11 +22,17 @@
 
     - set_fact:
         docker_network_monitoring_ip: "{{ network_info.stdout | from_json | json_query('[] | [0].IPAM.Config[0].Gateway') }}"
+        prometheus_port: 9090
 
-    - name: Copy Prometheus template file
+    - name: Generate Prometheus config file
       template:
         src: data/templates/prometheus.j2
         dest: data/volumes/prometheus.yml
+
+    - name: Generate Grafana datasource config file
+      template:
+        src: data/templates/datasource-config.j2
+        dest: data/volumes/datasource-config.yaml
 
     - name: Run Docker Compose Up
       command: docker-compose up -d
