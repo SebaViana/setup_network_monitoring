@@ -9,20 +9,28 @@ REPO_NAME="icmp_ping_exporter"
 IMAGE_TAG="latest"
 
 REPO_URL="https://github.com/SebaViana/icmp_ping_exporter.git"
+RELEASE_VER="v1.0.0"
 
 cd "$DATA_DIR" || exit
 if [ -d "$REPO_NAME" ]; then
-    echo "Repository directory '$REPO_NAME' already exists. Updating..."
+    echo "Repository directory '$REPO_NAME' already exists."
     cd "$REPO_NAME" || exit
-    git pull
-    if [ $? -eq 0 ]; then
-        echo "Repository updated successfully."
+    CURRENT_TAG="$(git describe --tags)"
+    if [ "$CURRENT_TAG" = "$RELEASE_VER" ]; then
+        echo "Repository is already at release version '$RELEASE_VER'."
     else
-        echo "Failed to update the repository."
-        exit 1
+        echo "Updating repository to release version '$RELEASE_VER'..."
+        git fetch --tags
+        git checkout "$RELEASE_VER"
+        if [ $? -eq 0 ]; then
+            echo "Repository updated to release version '$RELEASE_VER' successfully."
+        else
+            echo "Failed to update the repository to release version '$RELEASE_VER'."
+            exit 1
+        fi
     fi
 else
-    git clone "$REPO_URL" "$REPO_NAME"
+    git clone -b "$RELEASE_VER" "$REPO_URL" "$REPO_NAME"
     if [ $? -eq 0 ]; then
         echo "Repository cloned successfully."
     else
