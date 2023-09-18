@@ -18,7 +18,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -105,11 +104,12 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 6,
+        "w": 12,
         "x": 0,
         "y": 1
       },
       "id": 1,
+      "interval": "1s",
       "maxPerRow": 6,
       "options": {
         "legend": {
@@ -187,13 +187,13 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Network Monitoring",
   "uid": "f9dc07e5-0990-4f56-8b7a-40717828748f",
-  "version": 7,
+  "version": 1,
   "weekStart": ""
 }

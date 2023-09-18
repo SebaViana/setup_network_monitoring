@@ -10,3 +10,4 @@ scrape_configs:
     static_configs:
       - targets: ['{{ docker_network_monitoring_ip }}:8085']
     metrics_path: /metrics
+    scrape_interval: 1s
