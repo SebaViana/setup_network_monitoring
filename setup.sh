@@ -59,9 +59,12 @@ SPEEDTEST_IMAGE_TAG="latest"
 
 SPEEDTEST_REPO_URL="https://github.com/SebaViana/speedtest_exporter.git"
 
+cd "$REPOS_DIR" || exit
 if [ -d "$SPEEDTEST_REPO_NAME" ]; then
     echo "Repository directory '$SPEEDTEST_REPO_NAME' already exists."
-    cd "$REPOS_DIR" || exit
+    cd "$SPEEDTEST_REPO_NAME" || exit
+    echo "Pulling the latest changes from '$SPEEDTEST_REPO_NAME'..."
+    git pull
 else
     git clone "$SPEEDTEST_REPO_URL" "$REPOS_DIR/$SPEEDTEST_REPO_NAME"
     if [ $? -eq 0 ]; then
