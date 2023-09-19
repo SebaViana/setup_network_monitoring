@@ -2,12 +2,15 @@ version: '3'
 services:
   prometheus:
     image: prom/prometheus
+    user: "1000:1000"
     volumes:
-      - ./data/volumes/prometheus.yml:/etc/prometheus/prometheus.yml 
+      - ./data/volumes/prometheus:/prometheus
+      - ./data/volumes/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml 
     ports:
       - "9090:9090"
     command:
       - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
     networks:
       - bridge_
 

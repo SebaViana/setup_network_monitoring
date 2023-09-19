@@ -27,7 +27,7 @@
     - name: Generate Prometheus config file
       template:
         src: data/templates/prometheus.j2
-        dest: data/volumes/prometheus.yml
+        dest: data/volumes/prometheus/prometheus.yml
 
     - name: Generate Grafana datasource config file
       template:
