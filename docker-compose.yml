@@ -19,7 +19,7 @@ services:
     image: icmp_ping_exporter
     restart: "unless-stopped"
     volumes:
-      - ./data/volumes/custom.yml:/app/custom.yml
+      - ./data/volumes/icmp_ping_exporter/custom.yml:/app/custom.yml
     ports: 
       - "8085:8085"
     networks:
@@ -35,6 +35,17 @@ services:
       - "3000:3000"
     networks:
       - bridge_ 
+
+  speedtest_exporter:
+    image: speedtest_exporter
+    restart: "unless-stopped"
+    volumes:
+      - ./data/volumes/speedtest_exporter/custom.yml:/app/custom.yml
+    ports:
+      - "8086:8085"
+    networks:
+      - bridge_
+
 
 networks:
   bridge_:
