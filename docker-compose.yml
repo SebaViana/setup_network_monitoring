@@ -3,6 +3,7 @@ services:
   prometheus:
     image: prom/prometheus
     user: "1000:1000"
+    restart: "unless-stopped"
     volumes:
       - ./data/volumes/prometheus:/prometheus
       - ./data/volumes/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml 
@@ -16,6 +17,7 @@ services:
 
   icmp_ping_exporter:
     image: icmp_ping_exporter
+    restart: "unless-stopped"
     volumes:
       - ./data/volumes/custom.yml:/app/custom.yml
     ports: 
@@ -25,6 +27,7 @@ services:
 
   grafana:
     image: grafana/grafana
+    restart: "unless-stopped"
     volumes:
       - ./data/volumes/grafana/datasource-config.yaml:/etc/grafana/provisioning/datasources/datasource-config.yaml
       - ./data/volumes/grafana/dashboards:/etc/grafana/provisioning/dashboards
